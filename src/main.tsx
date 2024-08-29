@@ -13,9 +13,8 @@ const router = createBrowserRouter([
     element: <Layout/>,
     children: [
       { path: '/', element: <Main /> },
-
+      { path: '*', element: <NotFoundPage /> }  // Catch-all route for undefined paths
     ],
-    errorElement: <NotFoundPage/>
   }
 ]); // Add routes here
 
