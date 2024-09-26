@@ -4,9 +4,8 @@ import './index.css'
 import { GlobalStateProvider } from './context/GlobalStateContext.tsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Main from './app/pages/Main.tsx'
-import NotFoundPage from './app/pages/NotFoundPage.tsx'
-import Layout from './components/ui/Layout/Layout.tsx'
-import BarChart from './components/ui/Graph/BarChart.tsx'
+import Layout from './components/Layout.tsx'
+import Netflix from './app/pages/Netflix.tsx'
 
 const router = createBrowserRouter([
   {
@@ -14,7 +13,8 @@ const router = createBrowserRouter([
     element: <Layout/>,
     children: [
       { path: '/', element: <Main /> },
-      { path: '/experiment', element: <BarChart /> },
+      { path: '/experiment', element: <Netflix /> },
+      { path: '/netflix', element: <Netflix /> },
 
 
     ],
