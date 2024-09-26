@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Main from './app/pages/Main.tsx'
 import NotFoundPage from './app/pages/NotFoundPage.tsx'
 import Layout from './components/ui/Layout/Layout.tsx'
+import BarChart from './components/ui/Graph/BarChart.tsx'
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,9 @@ const router = createBrowserRouter([
     element: <Layout/>,
     children: [
       { path: '/', element: <Main /> },
-      { path: '*', element: <NotFoundPage /> }  // Catch-all route for undefined paths
+      { path: '/experiment', element: <BarChart /> },
+
+
     ],
   }
 ]); // Add routes here
