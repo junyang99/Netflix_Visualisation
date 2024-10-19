@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@/components/theme-provider";
 import { useState, ReactNode, createContext, SetStateAction, Dispatch } from "react";
 
  interface GlobalState {
@@ -32,9 +33,12 @@ const GlobalStateContext = createContext<GlobalStateContextType | undefined>(und
     })
 
     return (
-        <GlobalStateContext.Provider value={{ globalState, setGlobalState }}>
-            {children}
-        </GlobalStateContext.Provider>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <GlobalStateContext.Provider value={{ globalState, setGlobalState }}>
+                {children}
+            </GlobalStateContext.Provider>
+        </ThemeProvider>
+
     )
 }
 

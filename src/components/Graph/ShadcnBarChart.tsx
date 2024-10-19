@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Bar, BarChart as RechartsBarChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart } from 'recharts'
 import Popup from '../Popup'
-import { Card, CardContent } from '../ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart'
+import { HoverCard } from '@radix-ui/react-hover-card'
+import { Monitor } from 'lucide-react'
 
 interface BarChartProps {
   data: Array<{ [key: string]: string | number }>
@@ -10,24 +12,26 @@ interface BarChartProps {
   yKey: string
   width?: number | string
   height?: number | string
+  dataLabel: string,
   title: string
   description: string
 }
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-} satisfies ChartConfig
 
-const ShadcnBarChart =  ({ data, xKey, yKey, width, height , title, description }: BarChartProps) => {
+
+const ShadcnBarChart = ({ data, xKey, yKey, width, height, title, description, dataLabel }: BarChartProps) => {
+  const chartConfig = {
+    value: {
+      label: `${dataLabel}`,
+      color: "hsl(var(--chart-1))",
+    },
+  } satisfies ChartConfig
   const [isPopupOpen, setIsPopupOpen] = useState(false)
-  const handleClick = () => {setIsPopupOpen(true)
-    console.log("clicked")
+  const handleClick = () => {
+    setIsPopupOpen(true)
   }
-  const handleClose = () =>  {setIsPopupOpen(false)
-    console.log("false")
+  const handleClose = () => {
+    setIsPopupOpen(false)
   }
 
   const [textSize, setTextSize] = useState(12); // Default text size
@@ -35,7 +39,7 @@ const ShadcnBarChart =  ({ data, xKey, yKey, width, height , title, description 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
-        setTextSize(10); // Smaller screen
+        setTextSize(7); // Smaller screen
       } else if (window.innerWidth < 1024) {
         setTextSize(12); // Medium screen
       } else {
@@ -50,64 +54,78 @@ const ShadcnBarChart =  ({ data, xKey, yKey, width, height , title, description 
   }, []);
 
   const renderChart = () => (
-<ChartContainer config={chartConfig}>
-  <BarChart accessibilityLayer data={data}>
-    <CartesianGrid vertical={false} />
-    
-    {/* XAxis Configuration */}
-    <XAxis
-      dataKey={xKey}  // Assuming xKey holds something like 'month'
-      tickLine={false}
-      tickMargin={10}
-      axisLine={true}
-      tickFormatter={(value) => value.slice(0, 3)}  // Example of formatting X-axis labels
-    />
+    <ChartContainer config={chartConfig} className="" >
+      <BarChart accessibilityLayer data={data}>
+        <CartesianGrid vertical={false} />
 
-    {/* YAxis Configuration */}
-    <YAxis
-      allowDecimals={false}  // As per your previous configuration
-      axisLine={true}       // Remove the axis line for a cleaner look
-      tickLine={false}       // Hide tick lines for Y-axis
-      tickMargin={10}        // Add margin for ticks to avoid crowding
-    />
+        {/* XAxis Configuration */}
+        <XAxis
+          dataKey={xKey}  // Assuming xKey holds something like 'month'
+          tickLine={false}
+          tickMargin={10}
+          axisLine={true}
 
-    {/* Tooltip */}
-    <ChartTooltip
-      cursor={false}
-      content={<ChartTooltipContent hideLabel />}
-    />
+        // tickFormatter={(value) => value.slice(0, 3)}  // Example of formatting X-axis labels
+        />
+        
+        {isPopupOpen && (
+          <>
+            <YAxis
+              allowDecimals={false}  // As per your previous configuration
+              axisLine={true}        // Show the axis line
+              tickLine={false}       // Hide tick lines for Y-axis
+              tickMargin={10}        // Add margin for ticks to avoid crowding
 
-    {/* Bar chart */}
-    <Bar dataKey={yKey} fill="var(--color-primary)" radius={8} />
-  </BarChart>
-</ChartContainer>
+              padding={{ top: 10 }}  // Add padding to the top and bottom of the axis
+
+            />
+            {/* Tooltip */}
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="line" />}
+            />
+          </>
+        )}
+
+        {/* Bar chart */}
+        <Bar dataKey={yKey} fill="var(--color-value)" radius={8} />
+      </BarChart>
+    </ChartContainer>
 
   )
 
   return (
     <>
-      <div >
-      {renderChart()}
+      <Card onClick={handleClick}  >
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
 
-      </div>
-     
+        </CardHeader>
+        <CardContent className=""  >
+          {renderChart()}
+        </CardContent>
+        <CardFooter>
+
+        </CardFooter>
+      </Card>
 
       <Popup onClose={handleClose} isOpen={isPopupOpen}>
-            <h2 className="text-2xl font-bold mb-4">{title}</h2>
-            <p className="mb-4">{description}</p>
-            {renderChart()}
-            <div className="mt-4">
-              <h3 className="text-xl font-semibold mb-2">Data Breakdown:</h3>
-              <ul className="list-disc pl-5">
-                {data.map((item, index) => (
-                  <li key={index}>
-                    {item[xKey]}: {item[yKey]} ({((item[yKey] as number) / data.reduce((sum, curr) => sum + (curr[yKey] as number), 0) * 100).toFixed(2)}%)
-                  </li>
-                ))}
-              </ul>
-              </div>
-        </Popup>
-    
+        <h2 className="text-2xl font-bold mb-4">{title}</h2>
+        <p className="mb-4">{description}</p>
+        {renderChart()}
+        <div className="mt-4">
+          <h3 className="text-xl font-semibold mb-2">Data Breakdown:</h3>
+          <ul className="list-disc pl-5">
+            {data.map((item, index) => (
+              <li key={index}>
+                {item[xKey]}: {item[yKey]} ({((item[yKey] as number) / data.reduce((sum, curr) => sum + (curr[yKey] as number), 0) * 100).toFixed(2)}%)
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Popup>
+
     </>
   )
 }
