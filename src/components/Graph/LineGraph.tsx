@@ -1,30 +1,37 @@
-import { LineChart, CartesianGrid, XAxis, Line } from 'recharts';
+import { LineChart, CartesianGrid, XAxis, YAxis, Line } from 'recharts';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
-import { TrendingUp } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../ui/card';
 
 interface LineGraphProps {
     data: Array<{ [key: string]: string | number }>
     line1_name: string;
-    line2_name: string;
+    line2_name: string | null;
     line1_dkey: string;
-    line2_dkey: string;
-    x_dkey: string;
+    line2_dkey: string | null;
+    x_dkey: string | number;
+    lineChartTitle: string;
+    lineChartDesc: string;
+    generalTrendMessage: string;
+    detailsMessage: string;
 
 }
 
 
-const LineGraph = ({ data, line1_name, line2_name, line1_dkey, line2_dkey, x_dkey}: LineGraphProps) => {
+// Able to convert between 2 types 
+const LineGraph = ({ data, line1_name, line2_name = null, line1_dkey, line2_dkey = null, x_dkey, lineChartDesc, lineChartTitle, generalTrendMessage, detailsMessage }: LineGraphProps) => {
 
     const chartConfig = {
         line1_data: {
             label: `${line1_name}`,
             color: "hsl(var(--chart-1))",
         },
-        line2_data: {
-            label: `${line2_name}`,
-            color: "hsl(var(--chart-2))",
-        },
+        ...(line2_dkey != null && {
+            line2_data: {
+                label: `${line2_name}`,
+                color: "hsl(var(--chart-2))",
+            },
+        })
+
     } satisfies ChartConfig
 
     const renderChart = () => {
@@ -39,28 +46,58 @@ const LineGraph = ({ data, line1_name, line2_name, line1_dkey, line2_dkey, x_dke
                     }}
                 >
                     <CartesianGrid vertical={false} />
-                    <XAxis
-                        dataKey={x_dkey}
+                    {
+                        <XAxis
+                            dataKey={x_dkey}
+                            tickLine={false}
+                            axisLine={false}
+                            tickMargin={8}
+                            tickFormatter={(value) => {
+                                if (typeof value === "string") {
+                                    return value.slice(0, 3); // If it's a string, slice the first 3 characters
+                                } else if (typeof value === "number") {
+                                    return value.toString(); // If it's a number, convert to string
+                                } else {
+                                    return value; // If it's another type, return as-is
+                                }
+                            }}
+                        />
+                    }
+
+
+
+                    <YAxis
                         tickLine={false}
                         axisLine={false}
                         tickMargin={8}
-                        tickFormatter={(value) => value.slice(0, 3)}
+                        tickFormatter={(value) => `${value}`}  // Optional: format ticks
                     />
-                    <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+
+                    <ChartTooltip cursor={false} content={<ChartTooltipContent />} 
+                    wrapperStyle={{
+                        width: "150px",
+                        borderRadius: "5px",
+                        padding: "10px",
+                    }}/>
+
+                    { }
                     <Line
                         dataKey={line1_dkey}
-                        type="monotone"
+                        type="linear"
                         stroke="var(--color-line1_data)"
                         strokeWidth={2}
                         dot={false}
                     />
-                    <Line
-                        dataKey={line2_dkey}
-                        type="monotone"
-                        stroke="var(--color-line2_data)"
-                        strokeWidth={2}
-                        dot={false}
-                    />
+                    {line2_dkey != null && (
+                        <Line
+                            dataKey={line2_dkey}
+                            type="monotone"
+                            stroke="var(--color-line2_data)"
+                            strokeWidth={2}
+                            dot={false}
+                        />)
+                    }
+
                 </LineChart>
             </ChartContainer>
         );
@@ -71,20 +108,20 @@ const LineGraph = ({ data, line1_name, line2_name, line1_dkey, line2_dkey, x_dke
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Line Chart - Multiple</CardTitle>
-                    <CardDescription>January - June 2024</CardDescription>
+                    <CardTitle>{lineChartTitle}</CardTitle>
+                    <CardDescription>{lineChartDesc}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                   {renderChart()}
+                    {renderChart()}
                 </CardContent>
                 <CardFooter>
                     <div className="flex w-full items-start gap-2 text-sm">
                         <div className="grid gap-2">
                             <div className="flex items-center gap-2 font-medium leading-none">
-                                Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+                                {generalTrendMessage}
                             </div>
                             <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                                Showing total visitors for the last 6 months
+                                {detailsMessage}
                             </div>
                         </div>
                     </div>
