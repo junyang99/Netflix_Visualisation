@@ -1,30 +1,46 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { GlobalStateProvider } from './context/GlobalStateContext.tsx'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Main from './app/pages/Main.tsx'
-import Layout from './components/Layout.tsx'
-import Netflix from './app/pages/Netflix.tsx'
+import React, { useEffect, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import { GlobalStateProvider } from './context/GlobalStateContext.tsx';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Main from './app/pages/Main.tsx';
+import Layout from './components/Layout.tsx';
+import Netflix from './app/pages/Netflix.tsx';
+import SpashScreen from './components/SplashScreen/SpashScreen.tsx';
+// Splash screen logic in the root component
+const App = () => {
+  const [splashScreen, setSplashScreen] = useState(true);
 
-const router = createBrowserRouter([
-  {
-    path:'/',
-    element: <Layout/>,
-    children: [
-      { path: '/', element: <Main /> },
-      { path: '/experiment', element: <Netflix /> },
-      { path: '/netflix', element: <Netflix /> },
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSplashScreen(false);
+    }, 3600); // Show splash screen for 5 seconds
 
+    return () => clearTimeout(timer); // Cleanup
+  }, []);
 
-    ],
-  }
-]); // Add routes here
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout />,
+      children: [
+        { path: '/', element: <Main /> },
+        { path: '/experiment', element: <Netflix /> },
+        { path: '/netflix', element: <Netflix /> },
+      ],
+    },
+  ]);
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  return (
     <GlobalStateProvider>
-      <RouterProvider router={router}/>
+      {splashScreen ? (
+        <SpashScreen /> // Display splash screen first
+      ) : (
+        <RouterProvider router={router} /> // Main content after splash screen
+      )}
     </GlobalStateProvider>
-  </StrictMode>,
-)
+  );
+};
+
+const rootElement = document.getElementById('root');
+createRoot(rootElement!).render(<App />);
