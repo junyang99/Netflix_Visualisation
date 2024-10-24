@@ -1,133 +1,106 @@
-import { useEffect, useState } from 'react'
-import { Bar, BarChart as RechartsBarChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart } from 'recharts'
-import Popup from '../Popup'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart'
-import { HoverCard } from '@radix-ui/react-hover-card'
-import { Monitor } from 'lucide-react'
+import { useEffect, useState, useCallback } from 'react'
+import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart } from 'recharts'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
 
 interface BarChartProps {
   data: Array<{ [key: string]: string | number }>
   xKey: string
   yKey: string
-  width?: number | string
-  height?: number | string
-  dataLabel: string,
+  dataLabel: string
   title: string
   description: string
 }
 
-
-
-const ShadcnBarChart = ({ data, xKey, yKey, width, height, title, description, dataLabel }: BarChartProps) => {
+export default function ShadcnBarChart({ data, xKey, yKey, title, description, dataLabel }: BarChartProps) {
   const chartConfig = {
     value: {
       label: `${dataLabel}`,
       color: "hsl(var(--chart-1))",
     },
   } satisfies ChartConfig
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
-  const handleClick = () => {
-    setIsPopupOpen(true)
-  }
-  const handleClose = () => {
-    setIsPopupOpen(false)
-  }
 
-  const [textSize, setTextSize] = useState(12); // Default text size
+  const [textSize, setTextSize] = useState(12)
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
-        setTextSize(7); // Smaller screen
+        setTextSize(13)
       } else if (window.innerWidth < 1024) {
-        setTextSize(12); // Medium screen
+        setTextSize(10)
       } else {
-        setTextSize(14); // Larger screen
+        setTextSize(8)
       }
-    };
+    }
 
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Set the initial text size
+    window.addEventListener('resize', handleResize)
+    handleResize()
 
-    return () => window.removeEventListener('resize', handleResize); // Cleanup
-  }, []);
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const renderCustomAxisTick = useCallback(({ x, y, payload }) => {
+    const maxLength = 10 // Maximum number of characters to display
+    let label = payload.value
+    if (label.length > maxLength) {
+      label = `${label.substring(0, maxLength)}...`
+    }
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x={0}
+          y={0}
+          dy={16}
+          textAnchor="end"
+          fill="hsl(var(--foreground))"
+          fontSize={textSize}
+          transform="rotate(-25)"
+        >
+          {label}
+        </text>
+      </g>
+    )
+  }, [textSize])
 
   const renderChart = () => (
-    <ChartContainer config={chartConfig} className="" >
-      <BarChart accessibilityLayer data={data}>
-        <CartesianGrid vertical={false} />
+    <ChartContainer config={chartConfig} className="w-full h-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data} barSize={30} margin={{ top: 20, right: 20, left: 20, bottom: 40 }}>
+          <CartesianGrid vertical={false} strokeDasharray="3 3" />
+          <XAxis
+            dataKey={xKey}
+            tickLine={false}
+            axisLine={true}
+            tick={renderCustomAxisTick}
+            height={60}
+            interval={0}
+          />
+          <YAxis
+            allowDecimals={false}
+            axisLine={true}
+            tickLine={false}
+            tickMargin={10}
+            tick={{ fontSize: textSize, fill: 'hsl(var(--foreground))' }}
+            width={40}
+          />
 
-        {/* XAxis Configuration */}
-        <XAxis
-          dataKey={xKey}  // Assuming xKey holds something like 'month'
-          tickLine={false}
-          tickMargin={10}
-          axisLine={true}
-
-        // tickFormatter={(value) => value.slice(0, 3)}  // Example of formatting X-axis labels
-        />
-        
-        {isPopupOpen && (
-          <>
-            <YAxis
-              allowDecimals={false}  // As per your previous configuration
-              axisLine={true}        // Show the axis line
-              tickLine={false}       // Hide tick lines for Y-axis
-              tickMargin={10}        // Add margin for ticks to avoid crowding
-
-              padding={{ top: 10 }}  // Add padding to the top and bottom of the axis
-
-            />
-            {/* Tooltip */}
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
-          </>
-        )}
-
-        {/* Bar chart */}
-        <Bar dataKey={yKey} fill="var(--color-value)" radius={8} />
-      </BarChart>
+      <Tooltip content={<ChartTooltipContent indicator="line" />} cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }} />
+          <Bar dataKey={yKey} fill="var(--color-value)" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
     </ChartContainer>
-
   )
 
   return (
-    <>
-      <Card onClick={handleClick}  >
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-
-        </CardHeader>
-        <CardContent className=""  >
-          {renderChart()}
-        </CardContent>
-        <CardFooter>
-
-        </CardFooter>
-      </Card>
-
-      <Popup onClose={handleClose} isOpen={isPopupOpen}>
-        <h2 className="text-2xl font-bold mb-4">{title}</h2>
-        <p className="mb-4">{description}</p>
+    <Card className="w-full h-full">
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent className="pt-0 h-[calc(100%-4rem)]">
         {renderChart()}
-        <div className="mt-4">
-          <h3 className="text-xl font-semibold mb-2">Data Breakdown:</h3>
-          <ul className="list-disc pl-5">
-            {data.map((item, index) => (
-              <li key={index}>
-                {item[xKey]}: {item[yKey]} ({((item[yKey] as number) / data.reduce((sum, curr) => sum + (curr[yKey] as number), 0) * 100).toFixed(2)}%)
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Popup>
-
-    </>
+      </CardContent>
+    </Card>
   )
 }
-
-export default ShadcnBarChart

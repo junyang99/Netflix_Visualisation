@@ -106,8 +106,8 @@ const LineGraph = ({ data, line1_name, line2_name = null, line1_dkey, line2_dkey
     return (
         <>
 
-            <Card>
-                <CardHeader>
+<Card className="w-full h-full lg:h-[500px]">
+<CardHeader>
                     <CardTitle>{lineChartTitle}</CardTitle>
                     <CardDescription>{lineChartDesc}</CardDescription>
                 </CardHeader>

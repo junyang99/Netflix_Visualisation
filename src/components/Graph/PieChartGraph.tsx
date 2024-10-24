@@ -9,9 +9,11 @@ interface PieChartProps {
     nameKey: string;
     pieChartTitle: string
     pieChartDescription: string
+    generalTrendMessage: string
+    detailsMessage: string
 }
 
-const PieChartGraph = ({ data, dataKey,nameKey,pieChartTitle,pieChartDescription }: PieChartProps) => {
+const PieChartGraph = ({ data, dataKey,nameKey,pieChartTitle,pieChartDescription, generalTrendMessage, detailsMessage }: PieChartProps) => {
     const colors = [
         "hsl(var(--chart-1))",
         "hsl(var(--chart-2))",
@@ -49,15 +51,15 @@ const PieChartGraph = ({ data, dataKey,nameKey,pieChartTitle,pieChartDescription
     console.log(chartConfig)
     
     return (
-        <Card className="flex flex-col">
-            <CardHeader className="items-center pb-0">
+        <Card className="flex flex-col w-full  h-full lg:h-[500px]">
+            <CardHeader className="items-start ">
                 <CardTitle>{pieChartTitle}</CardTitle>
                 <CardDescription>{pieChartDescription}</CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 pb-0">
+            <CardContent className="flex-1 ">
                 <ChartContainer
                     config={chartConfig}
-                    className="mx-auto aspect-square max-h-[250px] px-0"
+                    className="mx-auto aspect-square w-full h-full"
                 >
                     <PieChart>
                         <ChartTooltip
@@ -95,12 +97,12 @@ const PieChartGraph = ({ data, dataKey,nameKey,pieChartTitle,pieChartDescription
                     </PieChart>
                 </ChartContainer>
             </CardContent>
-            <CardFooter className="flex-col gap-2 text-sm">
-                <div className="flex items-center gap-2 font-medium leading-none">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+            <CardFooter className="flex-col gap-2 text-sm items-start">
+                <div className="flex items-center  gap-2 font-medium leading-none">
+                    {generalTrendMessage}
                 </div>
                 <div className="leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
+                    {detailsMessage}
                 </div>
             </CardFooter>
         </Card>
