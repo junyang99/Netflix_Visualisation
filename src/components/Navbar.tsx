@@ -57,10 +57,10 @@ const Navbar: React.FC = () => (
       </li>
       <li>
         <Link
-          to="/contact"
+          to="/Tableau"
           className="hover:text-red-500 hover:scale-105 transition-transform duration-300"
         >
-          Contact
+          Tableau
         </Link>
       </li>
     </ul>
