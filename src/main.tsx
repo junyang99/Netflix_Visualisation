@@ -7,7 +7,7 @@ import Main from './app/pages/Main.tsx';
 import Layout from './components/Layout.tsx';
 import Netflix from './app/pages/Netflix.tsx';
 import User from './app/pages/User.tsx';
-import About from './app/pages/About.tsx';
+import About from './app/pages/About/About.tsx';
 import SpashScreen from './components/SplashScreen/SpashScreen.tsx';
 // Splash screen logic in the root component
 const App = () => {

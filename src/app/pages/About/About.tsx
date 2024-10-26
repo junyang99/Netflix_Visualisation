@@ -1,16 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import Container from "@/components/Container";
+import styles from "./styles.module.css"
 
 const About = () => {
   return (
-    <div className="bg-black text-white min-h-screen px-8 py-12">
+    <Container>
 
       {/* Main Content Section */}
       <main className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Text Section */}
         <div>
           <h2 className="text-5xl font-extrabold mb-6">
-            Stories are an essential part of our lives.|
+            <span className={styles.typingone}>Stories are an essential part of our lives.</span>
           </h2>
           <p className="text-lg leading-7 mb-6">
             It is undeniable that streaming platforms, such as Netflix, have transformed how we consume entertainment and connect with stories worldwide. 
@@ -45,7 +45,8 @@ const About = () => {
         </div>
 
         <div>
-          <h2 className="text-4xl font-extrabold mb-6">Our Approach|</h2>
+          <h2 className="text-4xl font-extrabold mb-6"> <span className={styles.typingtwo}>Our Approach.</span>
+          </h2>
           <p className="text-lg leading-7 mb-4">
             With millions of users watching Netflix daily, the platform generates massive amounts of data. By analyzing these trends, industry stakeholders and content creators 
             can make informed decisions and tailor their strategies to match audience interests.
@@ -73,7 +74,7 @@ const About = () => {
           </ul>
         </div>
       </section>
-    </div>
+    </Container>
   );
 };
 

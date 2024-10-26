@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => (
-  <nav className="flex justify-between items-center p-4 bg-black bg-opacity-80 sticky top-0 z-50 shadow-md transition-all duration-300">
+  <nav className="flex justify-between bg-background items-center p-4 bg bg-opacity-80 sticky top-0 z-50 shadow-md transition-all duration-300">
     {/* Logo container with animation */}
     <div className="flex items-center ml-8 animate-slideIn">
       <img

@@ -1,0 +1,53 @@
+/* About.module.css or styles.css */
+
+@keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+
+@keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 33ch;
+    }
+  }
+
+@keyframes typing_two {
+    from {
+      width: 0;
+    }
+    to {
+      width: 12ch;
+    }
+  }
+
+.typingone {
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+    border-right: 3px solid;
+    width: fit-content;
+    animation: typing 1s steps(100, end) forwards, blink 0.5s step-end infinite alternate;
+  }
+
+.typingtwo {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid;
+    width: fit-content;
+    animation: typing_two 1s steps(100, end) forwards, blink 0.5s step-end infinite alternate;
+  }
+.cursor {
+    display: inline-block; /* Allows height adjustment */
+    border-right: 6px solid; /* Adjust color and thickness as needed */
+    height: 0.8em; /* Set desired height */
+    line-height: 1.2em; /* Adjust to match height */
+    animation: blink 2s step-end infinite;
+    margin-left: 5px;
+}
+
+  
