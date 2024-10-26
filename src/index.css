@@ -8,7 +8,6 @@ body {
 }
 
 
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -74,4 +73,31 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Slide-in animation for the logo */
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 1s ease-out;
+}
+
+/* Navbar background hover effect */
+nav:hover {
+  background-color: rgba(0, 0, 0, 1); /* Darker background on hover */
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Link hover effect */
+ul li a {
+  transition: color 0.3s, transform 0.3s;
 }

@@ -2,6 +2,7 @@ import ShadcnBarChart from "@/components/Graph/ShadcnBarChart";
 import Container from "@/components/Container";
 import LineGraph from "@/components/Graph/LineGraph";
 import PieChartGraph from "@/components/Graph/PieChartGraph";
+import { useState } from "react";
 
 const lineData = [
     { Age: 26, line1_data: 15},
@@ -33,10 +34,8 @@ const lineData = [
 ];
 
 const pieChartData = [
-    { type: "Male", percentage: 49.7, fill: "var(--color-Movie)" },
-    { type: "Female", percentage: 50.3, fill: "var(--color-TV)" },
-
-    // Max only 5 piecharts
+    { type: "Male", percentage: 49.7, fill: "var(--color-Male)" },
+    { type: "Female", percentage: 50.3, fill: "var(--color-Female)" },
 ];
 
 const categoryData = [
@@ -47,15 +46,11 @@ const categoryData = [
 ];
 
 const contentDistributionData = 
-[{'country': 'United States', 'value': 2809},
-    {'country': 'India', 'value': 972},
-    {'country': 'United Kingdom', 'value': 418},
-    {'country': 'Japan', 'value': 243},
-    {'country': 'South Korea', 'value': 199},
-    {'country': 'Canada', 'value': 181},
-    {'country': 'Spain', 'value': 145},
-    {'country': 'France', 'value': 124},
-    {'country': 'Mexico', 'value': 110}]
+[{'country': 'United States', 'value': 5664},
+    {'country': 'Spain', 'value': 5662},
+    {'country': 'Canada', 'value': 3950},
+    {'country': 'United Kingdom', 'value': 2318},
+    {'country': 'France', 'value': 2307}]
 
 const userCountryData = 
     [{'user_country': 'United States', 'value': 451},
@@ -69,93 +64,151 @@ const userCountryData =
     {'user_country': 'Mexico', 'value': 183},
     {'user_country': 'Italy', 'value': 183}]
 
-const SubscriptionRatingData = 
-    [{'Subscription': 'Basic', 'value': 999},
-    {'Subscription': 'Standard', 'value': 768},
-    {'Subscription': 'Premium', 'value': 733},
-    ]
+// const SubscriptionRatingData = 
+//     [{'Subscription': 'Basic', 'percentage': 0.39, },
+//     {'Subscription': 'Standard', 'percentage': 0.31},
+//     {'Subscription': 'Premium', 'percentage': 0.29},
+//     ]
+
+    const SubscriptionRatingData = [
+        { type: "Basic", percentage: 39, fill: "var(--color-Basic)" },
+        { type: "Standard", percentage: 31, fill: "var(--color-Standard)" },
+        { type: "Premium", percentage: 29, fill: "var(--color-Premium)" }
+    ];
     
-
-
-const User = () => {
-    return (
-        <Container>
-            {/* Main grid layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
-                
-                {/* LineGraph and PieChart side by side on larger screens */}
-                <div className=" col-span-1 md:col-span-1 lg:col-span-4">
-                    <LineGraph
-                        data={lineData} // Line chart data
-                        line1_name="Content Growth"
-                        line1_dkey="line1_data"
-                        x_dkey="year"
-                        lineChartTitle="Platform Content Growth Over Time"
-                        lineChartDesc="Analysis of content growth between 2008 and 2021"
-                        generalTrendMessage="Significant growth, peaking in 2018"
-                        detailsMessage="The chart shows the rapid increase in content published on the platform, especially in the past decade."
-                    />
-                </div>
-
-                <div className="col-span-1 md:col-span-1 lg:col-span-2">
-                    <PieChartGraph
-                        data={pieChartData} // Pie chart data
-                        dataKey="percentage" // Data key for values
-                        nameKey="type" // Key for labels
-                        pieChartTitle="Gender Breakdown" // Pie chart title
-                        pieChartDescription="Breakdown of userbase by gender" // Pie chart description
-                        generalTrendMessage="Equal Gender Distribution between guy and girls"
-                        detailsMessage="Equal Gender Distribution between guy and girls"
-                    />
-                </div>
-
-                {/* Bar charts below the LineGraph and PieChart */}
-                <div className="col-span-1 md:col-span-1 lg:col-span-3">
-                    <ShadcnBarChart
-                        data={contentDistributionData}
-                        xKey="country"
-                        yKey="value"
-                        title="Top 9 Countries by Content Count"
-                        dataLabel="Country"
-                        description="Content distribution by country on Netflix"
-                    />
-                </div>
-
-                <div className="col-span-1 md:col-span-1 lg:col-span-3">
-                    <ShadcnBarChart
-                        data={userCountryData}
-                        xKey="Country"
-                        yKey="value"
-                        title="User by Country"
-                        dataLabel="Director"
-                        description="User distribution of content by country"
-                    />
-                </div>
-                <div className="col-span-1 md:col-span-1 lg:col-span-3">
-                    <ShadcnBarChart
-                        data={SubscriptionRatingData}
-                        xKey="Subscription Type"
-                        yKey="value"
-                        title="Subscription Type"
-                        dataLabel="Rating"
-                        description="Subscription type by Gender"
-                    />
-                </div>
-
-                <div className="col-span-1 md:col-span-1 lg:col-span-3">
-                    <ShadcnBarChart
-                        data={genreData}
-                        xKey="genre"
-                        yKey="value"
-                        title="Top 10 Genres by Frequency"
-                        dataLabel="Genre"
-                        description="Genre distribution of content on Netflix"
-                    />
-                </div>
-
+    const User = () => {
+        const [showAnalysis, setShowAnalysis] = useState(false);
+        const toggleAnalysis = () => setShowAnalysis((prev) => !prev);
+      
+        return (
+          <Container className="w-full max-w-[1600px] mx-auto px-6">
+            {/* Main grid layout for charts */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
+              {/* LineGraph */}
+              <div className="col-span-1 md:col-span-2 lg:col-span-8">
+                <LineGraph
+                  data={lineData}
+                  line1_name="Age Viewership"
+                  line1_dkey="line1_data"
+                  x_dkey="Age"
+                  lineChartTitle="Platform Content Growth Over Time"
+                  lineChartDesc="Analysis of user's Netflix consumption by age"
+                  generalTrendMessage="Decline in User as Age increases"
+                  detailsMessage="There is a sharp decline in user consumption after Age 26 and consumption steadily stagnates afterwards"
+                />
+              </div>
+      
+              {/* Gender Breakdown Pie Chart */}
+              <div className="col-span-1 md:col-span-2 lg:col-span-4">
+                <PieChartGraph
+                  data={pieChartData}
+                  dataKey="percentage"
+                  nameKey="type"
+                  pieChartTitle="Gender Breakdown"
+                  pieChartDescription="Breakdown of userbase by gender"
+                  generalTrendMessage="Equal Gender Distribution between guys and girls"
+                  detailsMessage="Equal Gender Distribution between guys and girls"
+                />
+              </div>
+      
+              {/* Bar charts */}
+              <div className="col-span-1 md:col-span-6 lg:col-span-6">
+                <ShadcnBarChart
+                  data={contentDistributionData}
+                  xKey="country"
+                  yKey="value"
+                  title="Country Distribution by User Base"
+                  dataLabel="Country"
+                  description="Content distribution by country on Netflix"
+                />
+              </div>
+      
+              <div className="col-span-1 md:col-span-6 lg:col-span-6">
+                <ShadcnBarChart
+                  data={userCountryData}
+                  xKey="user_country"
+                  yKey="value"
+                  title="User by Country"
+                  dataLabel="Country"
+                  description="User distribution of content by country"
+                />
+              </div>
+      
+              <div className="col-span-1 md:col-span-6 lg:col-span-4">
+                <PieChartGraph
+                  data={SubscriptionRatingData}
+                  dataKey="percentage"
+                  nameKey="type"
+                  pieChartTitle="Subscription Type"
+                  pieChartDescription="Breakdown of userbase by subscription"
+                  generalTrendMessage="Majority of users are subscribed to the Basic Plan"
+                />
+              </div>
+      
+              <div className="col-span-1 md:col-span-6 lg:col-span-8">
+                <ShadcnBarChart
+                  data={categoryData}
+                  xKey="name"
+                  yKey="value"
+                  title="User Device"
+                  dataLabel="Devices Use"
+                  description="User's device used to watch Netflix"
+                />
+              </div>
             </div>
-        </Container>
-    );
-};
-
-export default User;
+      
+            
+            <div className="text-center mt-12">
+              <button
+                onClick={toggleAnalysis}
+                className="px-8 py-4 text-xl font-bold text-white bg-red-600 rounded-full hover:bg-red-700 transition-all font-cursive shadow-lg"
+              >
+                {showAnalysis ? "Hide Analysis" : "Show Analysis"}
+              </button>
+            </div>
+      
+            
+            {showAnalysis && (
+              <div className="bg-gray-900 text-white p-8 mt-6 rounded-lg space-y-6">
+                <h2 className="text-3xl font-bold">Analysis and Insights</h2>
+                <div className="space-y-4">
+                  <p>
+                    <strong>Platform Content Growth:</strong> Consumption tends to
+                    decrease significantly after the age of 26, suggesting that younger
+                    audiences are more engaged with Netflix content.
+                  </p>
+                  <p>
+                    <strong>Gender Breakdown:</strong> The gender distribution is almost
+                    equal, highlighting that Netflix appeals equally to both male and
+                    female users.
+                  </p>
+                  <p>
+                    <strong>Country Distribution:</strong> The United States, Spain, and
+                    Canada lead in content availability, with the largest volume of
+                    Netflix content.
+                  </p>
+                  <p>
+                    <strong>User Distribution by Country:</strong> User engagement is
+                    strong not only in North America but also across Europe, with
+                    substantial engagement from Spain, Germany, and Italy.
+                  </p>
+                  <p>
+                    <strong>Subscription Types:</strong> The Basic plan is the most
+                    popular subscription choice, which could indicate price sensitivity
+                    or lower demand for premium features.
+                  </p>
+                  <p>
+                    <strong>Device Usage:</strong> Users most frequently stream content
+                    on Smart TVs and laptops, followed by tablets and smartphones,
+                    indicating a preference for larger screens.
+                  </p>
+                </div>
+              </div>
+            )}
+          </Container>
+        );
+      };
+      
+      export default User;
+      
+      

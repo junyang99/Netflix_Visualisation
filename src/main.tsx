@@ -7,6 +7,7 @@ import Main from './app/pages/Main.tsx';
 import Layout from './components/Layout.tsx';
 import Netflix from './app/pages/Netflix.tsx';
 import User from './app/pages/User.tsx';
+import About from './app/pages/About.tsx';
 import SpashScreen from './components/SplashScreen/SpashScreen.tsx';
 // Splash screen logic in the root component
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
       element: <Layout />,
       children: [
         { path: '/', element: <Main /> },
+        { path: '/about', element: <About /> },
         { path: '/user', element: <User /> },
         { path: '/experiment', element: <Netflix /> },
         { path: '/netflix', element: <Netflix /> },
