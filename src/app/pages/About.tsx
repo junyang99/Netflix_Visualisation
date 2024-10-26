@@ -38,7 +38,7 @@ const About = () => {
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="flex justify-center">
           <img
-            src="https://cdn.iconscout.com/icon/free/png-256/netflix-282224.png"
+            src="https://futureparty.com/wp-content/uploads/2022/04/netflix_ad_april_21.214759.gif"
             alt="Netflix Icon"
             className="w-1/3"
           />
