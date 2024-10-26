@@ -169,42 +169,64 @@ const userCountryData =
       
             
             {showAnalysis && (
-              <div className="bg-gray-900 text-white p-8 mt-6 rounded-lg space-y-6">
-                <h2 className="text-3xl font-bold">Analysis and Insights</h2>
-                <div className="space-y-4">
-                  <p>
-                    <strong>Platform Content Growth:</strong> Consumption tends to
-                    decrease significantly after the age of 26, suggesting that younger
-                    audiences are more engaged with Netflix content.
-                  </p>
-                  <p>
-                    <strong>Gender Breakdown:</strong> The gender distribution is almost
-                    equal, highlighting that Netflix appeals equally to both male and
-                    female users.
-                  </p>
-                  <p>
-                    <strong>Country Distribution:</strong> The United States, Spain, and
-                    Canada lead in content availability, with the largest volume of
-                    Netflix content.
-                  </p>
-                  <p>
-                    <strong>User Distribution by Country:</strong> User engagement is
-                    strong not only in North America but also across Europe, with
-                    substantial engagement from Spain, Germany, and Italy.
-                  </p>
-                  <p>
-                    <strong>Subscription Types:</strong> The Basic plan is the most
-                    popular subscription choice, which could indicate price sensitivity
-                    or lower demand for premium features.
-                  </p>
-                  <p>
-                    <strong>Device Usage:</strong> Users most frequently stream content
-                    on Smart TVs and laptops, followed by tablets and smartphones,
-                    indicating a preference for larger screens.
-                  </p>
-                </div>
-              </div>
-            )}
+  <div className="bg-black/50 text-white p-8 mt-6 rounded-lg shadow-md">
+    <h2 className="text-2xl font-bold mb-4">Analysis and Insights</h2>
+    <table className="w-full table-auto border-collapse">
+      <thead>
+        <tr className="text-left">
+          <th className="pb-2 text-lg font-medium text-gray-300">Metric</th>
+          <th className="pb-2 text-lg font-medium text-gray-300">Insight</th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-700">
+        <tr>
+          <td className="py-4 text-gray-200">Platform Content Growth</td>
+          <td className="py-4 text-gray-400">
+            Consumption tends to decrease significantly after the age of 26, suggesting that younger
+            audiences are more engaged with Netflix content.
+          </td>
+        </tr>
+        <tr>
+          <td className="py-4 text-gray-200">Gender Breakdown</td>
+          <td className="py-4 text-gray-400">
+            The gender distribution is almost equal, highlighting that Netflix appeals equally to
+            both male and female users.
+          </td>
+        </tr>
+        <tr>
+          <td className="py-4 text-gray-200">Country Distribution</td>
+          <td className="py-4 text-gray-400">
+            The United States, Spain, and Canada lead in content availability, with the largest
+            volume of Netflix content.
+          </td>
+        </tr>
+        <tr>
+          <td className="py-4 text-gray-200">User Distribution by Country</td>
+          <td className="py-4 text-gray-400">
+            User engagement is strong not only in North America but also across Europe, with
+            substantial engagement from Spain, Germany, and Italy.
+          </td>
+        </tr>
+        <tr>
+          <td className="py-4 text-gray-200">Subscription Types</td>
+          <td className="py-4 text-gray-400">
+            The Basic plan is the most popular subscription choice, which could indicate price
+            sensitivity or lower demand for premium features.
+          </td>
+        </tr>
+        <tr>
+          <td className="py-4 text-gray-200">Device Usage</td>
+          <td className="py-4 text-gray-400">
+            Users most frequently stream content on Smart TVs and laptops, followed by tablets and
+            smartphones, indicating a preference for larger screens.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+)}
+
+
           </Container>
         );
       };
