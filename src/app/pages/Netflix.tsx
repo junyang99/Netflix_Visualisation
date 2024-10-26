@@ -27,12 +27,6 @@ const pieChartData = [
     // Max only 5 piecharts
 ];
 
-const categoryData = [
-    { name: "Action", value: 400 },
-    { name: "Comedy", value: 300 },
-    { name: "Drama", value: 200 },
-    { name: "Sci-Fi", value: 100 }
-];
 
 const contentDistributionData = 
 [{'country': 'United States', 'value': 2809},
