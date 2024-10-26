@@ -102,10 +102,10 @@ const User = () => {
                         data={pieChartData} // Pie chart data
                         dataKey="percentage" // Data key for values
                         nameKey="type" // Key for labels
-                        pieChartTitle="Movies vs TV Shows" // Pie chart title
-                        pieChartDescription="Breakdown of content types" // Pie chart description
-                        generalTrendMessage="Movies are 30.3% more than TV shows "
-                        detailsMessage="Stronger emphasis placed on movies as compared to TV shows"
+                        pieChartTitle="Gender Breakdown" // Pie chart title
+                        pieChartDescription="Breakdown of userbase by gender" // Pie chart description
+                        generalTrendMessage="Equal Gender Distribution between guy and girls"
+                        detailsMessage="Equal Gender Distribution between guy and girls"
                     />
                 </div>
 
