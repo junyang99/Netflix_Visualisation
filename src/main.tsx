@@ -14,7 +14,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setSplashScreen(false);
-    }, 3600); // Show splash screen for 5 seconds
+    }, 2800); // Show splash screen for 5 seconds
 
     return () => clearTimeout(timer); // Cleanup
   }, []);
@@ -34,7 +34,7 @@ const App = () => {
   return (
     <GlobalStateProvider>
       {splashScreen ? (
-        <SpashScreen /> // Display splash screen first
+        <SpashScreen letter='N'/> // Display splash screen first
       ) : (
         <RouterProvider router={router} /> // Main content after splash screen
       )}
