@@ -45,7 +45,7 @@ const About = () => {
         </div>
 
         <div>
-          <h2 className="text-4xl font-extrabold mb-6"> <span className={styles.typingtwo}>Our Approach.</span>
+          <h2 className="text-5xl font-extrabold mb-6"> <span className={styles.typingtwo}>Our Approach.</span>
           </h2>
           <p className="text-lg leading-7 mb-4">
             With millions of users watching Netflix daily, the platform generates massive amounts of data. By analyzing these trends, industry stakeholders and content creators 
