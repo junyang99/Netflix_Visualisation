@@ -29,7 +29,7 @@ const App = () => {
         { path: '/', element: <Main /> },
         { path: '/about', element: <About /> },
         { path: '/user', element: <User /> },
-        { path: '/experiment', element: <Netflix /> },
+        // { path: '/experiment', element: <Netflix /> },
         { path: '/netflix', element: <Netflix /> },
       ],
     },
