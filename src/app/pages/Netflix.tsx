@@ -2,6 +2,7 @@ import ShadcnBarChart from "@/components/Graph/ShadcnBarChart";
 import Container from "@/components/Container";
 import LineGraph from "@/components/Graph/LineGraph";
 import PieChartGraph from "@/components/Graph/PieChartGraph";
+import { useState } from "react";
 
 const lineData = [
     { year: 2008, line1_data: 2 },
@@ -28,68 +29,72 @@ const pieChartData = [
 ];
 
 
-const contentDistributionData = 
-[{'country': 'United States', 'value': 2809},
-    {'country': 'India', 'value': 972},
+const contentDistributionData =
+    [{ 'country': 'United States', 'value': 2809 },
+    { 'country': 'India', 'value': 972 },
     // {'country': 'Unknown ', 'value': 829},
-    {'country': 'United Kingdom', 'value': 418},
-    {'country': 'Japan', 'value': 243},
-    {'country': 'South Korea', 'value': 199},
-    {'country': 'Canada', 'value': 181},
-    {'country': 'Spain', 'value': 145},
-    {'country': 'France', 'value': 124},
-    {'country': 'Mexico', 'value': 110}]
+    { 'country': 'United Kingdom', 'value': 418 },
+    { 'country': 'Japan', 'value': 243 },
+    { 'country': 'South Korea', 'value': 199 },
+    { 'country': 'Canada', 'value': 181 },
+    { 'country': 'Spain', 'value': 145 },
+    { 'country': 'France', 'value': 124 },
+    { 'country': 'Mexico', 'value': 110 }]
 
-const directorFrequencyData = 
-    [{'director': 'Rajiv Chilaka', 'value': 19},
-    {'director': 'Raúl Campos, Jan Suter', 'value': 18},
-    {'director': 'Suhas Kadav', 'value': 16},
-    {'director': 'Marcus Raboy', 'value': 16},
-    {'director': 'Jay Karas', 'value': 14},
-    {'director': 'Cathy Garcia-Molina', 'value': 13},
-    {'director': 'Martin Scorsese', 'value': 12},
-    {'director': 'Jay Chapman', 'value': 12},
-    {'director': 'Youssef Chahine', 'value': 12},
-    {'director': 'Steven Spielberg', 'value': 11}]
+const directorFrequencyData =
+    [{ 'director': 'Rajiv Chilaka', 'value': 19 },
+    { 'director': 'Raúl Campos, Jan Suter', 'value': 18 },
+    { 'director': 'Suhas Kadav', 'value': 16 },
+    { 'director': 'Marcus Raboy', 'value': 16 },
+    { 'director': 'Jay Karas', 'value': 14 },
+    { 'director': 'Cathy Garcia-Molina', 'value': 13 },
+    { 'director': 'Martin Scorsese', 'value': 12 },
+    { 'director': 'Jay Chapman', 'value': 12 },
+    { 'director': 'Youssef Chahine', 'value': 12 },
+    { 'director': 'Steven Spielberg', 'value': 11 }]
 
-const tvRatingData = 
-    [{'rating': 'TV-MA', 'value': 3205},
-    {'rating': 'TV-14', 'value': 2157},
-    {'rating': 'TV-PG', 'value': 861},
-    {'rating': 'R', 'value': 799},
-    {'rating': 'PG-13', 'value': 490},
-    {'rating': 'TV-Y7', 'value': 333},
-    {'rating': 'TV-Y', 'value': 306},
-    {'rating': 'PG', 'value': 287},
-    {'rating': 'TV-G', 'value': 220},
-    {'rating': 'NR', 'value': 79}
+const tvRatingData =
+    [{ 'rating': 'TV-MA', 'value': 3205 },
+    { 'rating': 'TV-14', 'value': 2157 },
+    { 'rating': 'TV-PG', 'value': 861 },
+    { 'rating': 'R', 'value': 799 },
+    { 'rating': 'PG-13', 'value': 490 },
+    { 'rating': 'TV-Y7', 'value': 333 },
+    { 'rating': 'TV-Y', 'value': 306 },
+    { 'rating': 'PG', 'value': 287 },
+    { 'rating': 'TV-G', 'value': 220 },
+    { 'rating': 'NR', 'value': 79 }
     ]
 
-const genreData = [{'genre': 'International Movies', 'value': 2752},
-    {'genre': 'Dramas', 'value': 2426},
-    {'genre': 'Comedies', 'value': 1674},
-    {'genre': 'International TV Shows', 'value': 1349},
-    {'genre': 'Documentaries', 'value': 869},
-    {'genre': 'Action & Adventure', 'value': 859},
-    {'genre': 'TV Dramas', 'value': 762},
-    {'genre': 'Independent Movies', 'value': 756},
-    {'genre': 'Children & Family Movies', 'value': 641},
-    {'genre': 'Romantic Movies', 'value': 616}]
-    
+const genreData = [{ 'genre': 'International Movies', 'value': 2752 },
+{ 'genre': 'Dramas', 'value': 2426 },
+{ 'genre': 'Comedies', 'value': 1674 },
+{ 'genre': 'International TV Shows', 'value': 1349 },
+{ 'genre': 'Documentaries', 'value': 869 },
+{ 'genre': 'Action & Adventure', 'value': 859 },
+{ 'genre': 'TV Dramas', 'value': 762 },
+{ 'genre': 'Independent Movies', 'value': 756 },
+{ 'genre': 'Children & Family Movies', 'value': 641 },
+{ 'genre': 'Romantic Movies', 'value': 616 }]
+
 
 
 const Netflix = () => {
+    const [showAnalysis, setShowAnalysis] = useState(false);
+    const toggleAnalysis = () => setShowAnalysis((prev) => !prev);
     return (
         <Container>
             {/* Main grid layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
-                
+
                 {/* LineGraph and PieChart side by side on larger screens */}
                 <div className=" col-span-1 md:col-span-1 lg:col-span-4">
                     <LineGraph
                         data={lineData} // Line chart data
                         line1_name="Content Growth"
                         line1_dkey="line1_data"
+                        line2_name="" // Provide a default or empty value
+                        line2_dkey="" // Provide a default or empty value
                         x_dkey="year"
                         lineChartTitle="Platform Content Growth Over Time"
                         lineChartDesc="Analysis of content growth between 2008 and 2021"
@@ -157,6 +162,60 @@ const Netflix = () => {
 
 
             </div>
+
+            <div className="text-center mt-12">
+                <button
+                    onClick={toggleAnalysis}
+                    className="px-8 py-4 text-xl font-bold text-white bg-red-600 rounded-full hover:bg-red-700 transition-transform duration-300 ease-in-out transform hover:scale-105 font-cursive shadow-lg"
+                >
+                    {showAnalysis ? "Hide Analysis" : "Show Analysis"}
+                </button>
+            </div>
+
+            <div
+                className={`bg-black/50 text-white p-8 mt-6 rounded-lg shadow-md transform transition-all duration-500 ease-in-out ${showAnalysis ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8 pointer-events-none'
+                    }`}
+            >
+                {showAnalysis && (
+                    <>
+                        <table className="w-full table-auto border border-gray-700 rounded-lg overflow-hidden">
+                            <thead>
+                                <tr className="bg-gray-800">
+                                    <th className="px-6 py-4 text-left text-lg font-semibold text-gray-300 border-b border-gray-600">Chart Type</th>
+                                    <th className="px-6 py-4 text-left text-lg text-center font-semibold text-gray-300 border-b border-gray-600">Insight</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-700">
+                                <tr className="bg-gray-900 hover:bg-gray-800 transition-colors duration-200 ease-in-out">
+                                    <td className="px-6 py-4 text-gray-200 font-medium">Line Chart</td>
+                                    <td className="px-6 py-4 text-gray-400">Content Growth Over Time – This chart visualizes the growth trend of Netflix content, providing insights into expansion over the years.</td>
+                                </tr>
+                                <tr className="bg-gray-800 hover:bg-gray-700 transition-colors duration-200 ease-in-out">
+                                    <td className="px-6 py-4 text-gray-200 font-medium">Pie Chart</td>
+                                    <td className="px-6 py-4 text-gray-400">Movies vs. TV Shows Distribution – A visual breakdown of the proportion of movies to TV shows available on Netflix.</td>
+                                </tr>
+                                <tr className="bg-gray-900 hover:bg-gray-800 transition-colors duration-200 ease-in-out">
+                                    <td className="px-6 py-4 text-gray-200 font-medium">Bar Chart</td>
+                                    <td className="px-6 py-4 text-gray-400">Top 10 Countries by Content – Shows the leading countries with the highest volume of available Netflix content.</td>
+                                </tr>
+                                <tr className="bg-gray-800 hover:bg-gray-700 transition-colors duration-200 ease-in-out">
+                                    <td className="px-6 py-4 text-gray-200 font-medium">Bar Chart</td>
+                                    <td className="px-6 py-4 text-gray-400">Top 10 Directors by Number of Titles – Highlights the most prolific directors on Netflix by the number of titles.</td>
+                                </tr>
+                                <tr className="bg-gray-900 hover:bg-gray-800 transition-colors duration-200 ease-in-out">
+                                    <td className="px-6 py-4 text-gray-200 font-medium">Bar Chart</td>
+                                    <td className="px-6 py-4 text-gray-400">Content Rating Distribution – Shows the breakdown of content ratings, providing insights into the maturity level of content.</td>
+                                </tr>
+                                <tr className="bg-gray-800 hover:bg-gray-700 transition-colors duration-200 ease-in-out">
+                                    <td className="px-6 py-4 text-gray-200 font-medium">Bar Chart</td>
+                                    <td className="px-6 py-4 text-gray-400">Content Genre Distribution – Displays the distribution of different genres available on Netflix, giving insight into content diversity.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </>
+                )}
+            </div>
+
         </Container>
     );
 };

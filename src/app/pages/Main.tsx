@@ -1,7 +1,6 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
 import Carousell from "@/components/Carousell";
-import { Play, Info } from "lucide-react";
+import { Info } from "lucide-react";
 
 export default function Main() {
   return (

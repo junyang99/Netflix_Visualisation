@@ -81,7 +81,7 @@ const userCountryData =
         const toggleAnalysis = () => setShowAnalysis((prev) => !prev);
       
         return (
-          <Container className="w-full max-w-[1600px] mx-auto px-6">
+          <Container>
             {/* Main grid layout for charts */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
               {/* LineGraph */}
@@ -90,6 +90,8 @@ const userCountryData =
                   data={lineData}
                   line1_name="Age Viewership"
                   line1_dkey="line1_data"
+                  line2_name=""
+                  line2_dkey=""
                   x_dkey="Age"
                   lineChartTitle="Platform Content Growth Over Time"
                   lineChartDesc="Analysis of user's Netflix consumption by age"
@@ -137,6 +139,7 @@ const userCountryData =
               <div className="col-span-1 md:col-span-6 lg:col-span-4">
                 <PieChartGraph
                   data={SubscriptionRatingData}
+                  detailsMessage=""
                   dataKey="percentage"
                   nameKey="type"
                   pieChartTitle="Subscription Type"
@@ -159,73 +162,71 @@ const userCountryData =
       
             
             <div className="text-center mt-12">
-              <button
-                onClick={toggleAnalysis}
-                className="px-8 py-4 text-xl font-bold text-white bg-red-600 rounded-full hover:bg-red-700 transition-all font-cursive shadow-lg"
-              >
-                {showAnalysis ? "Hide Analysis" : "Show Analysis"}
-              </button>
-            </div>
-      
-            
-            {showAnalysis && (
-  <div className="bg-black/50 text-white p-8 mt-6 rounded-lg shadow-md">
-    <h2 className="text-2xl font-bold mb-4">Analysis and Insights</h2>
-    <table className="w-full table-auto border-collapse">
-      <thead>
-        <tr className="text-left">
-          <th className="pb-2 text-lg font-medium text-gray-300">Metric</th>
-          <th className="pb-2 text-lg font-medium text-gray-300">Insight</th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-700">
-        <tr>
-          <td className="py-4 text-gray-200">Platform Content Growth</td>
-          <td className="py-4 text-gray-400">
-            Consumption tends to decrease significantly after the age of 26, suggesting that younger
-            audiences are more engaged with Netflix content.
-          </td>
-        </tr>
-        <tr>
-          <td className="py-4 text-gray-200">Gender Breakdown</td>
-          <td className="py-4 text-gray-400">
-            The gender distribution is almost equal, highlighting that Netflix appeals equally to
-            both male and female users.
-          </td>
-        </tr>
-        <tr>
-          <td className="py-4 text-gray-200">Country Distribution</td>
-          <td className="py-4 text-gray-400">
-            The United States, Spain, and Canada lead in content availability, with the largest
-            volume of Netflix content.
-          </td>
-        </tr>
-        <tr>
-          <td className="py-4 text-gray-200">User Distribution by Country</td>
-          <td className="py-4 text-gray-400">
-            User engagement is strong not only in North America but also across Europe, with
-            substantial engagement from Spain, Germany, and Italy.
-          </td>
-        </tr>
-        <tr>
-          <td className="py-4 text-gray-200">Subscription Types</td>
-          <td className="py-4 text-gray-400">
-            The Basic plan is the most popular subscription choice, which could indicate price
-            sensitivity or lower demand for premium features.
-          </td>
-        </tr>
-        <tr>
-          <td className="py-4 text-gray-200">Device Usage</td>
-          <td className="py-4 text-gray-400">
-            Users most frequently stream content on Smart TVs and laptops, followed by tablets and
-            smartphones, indicating a preference for larger screens.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-)}
+  <button
+    onClick={toggleAnalysis}
+    className="px-8 py-4 text-xl font-bold text-white bg-red-600 rounded-full hover:bg-red-700 transition-transform duration-300 ease-in-out transform hover:scale-105 font-cursive shadow-lg"
+  >
+    {showAnalysis ? "Hide Analysis" : "Show Analysis"}
+  </button>
+</div>
 
+<div
+  className={`bg-black/50 text-white p-8 mt-6 rounded-lg shadow-md transform transition-all duration-500 ease-in-out ${
+    showAnalysis ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8 pointer-events-none'
+  }`}
+>
+  {showAnalysis && (
+    <>
+      <h2 className="text-2xl font-bold mb-6 text-center">Analysis and Insights</h2>
+      <table className="w-full table-auto border border-gray-700 rounded-lg overflow-hidden">
+        <thead>
+          <tr className="bg-gray-800">
+            <th className="px-6 py-4 text-left text-lg font-semibold text-gray-300 border-b border-gray-600">Metric</th>
+            <th className="px-6 py-4 text-left text-lg font-semibold text-gray-300 border-b border-gray-600">Insight</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-700">
+          <tr className="bg-gray-900 hover:bg-gray-800 transition-colors duration-200 ease-in-out">
+            <td className="px-6 py-4 text-gray-200 font-medium">Platform Content Growth</td>
+            <td className="px-6 py-4 text-gray-400">
+              Consumption tends to decrease significantly after the age of 26, suggesting that younger audiences are more engaged with Netflix content.
+            </td>
+          </tr>
+          <tr className="bg-gray-800 hover:bg-gray-700 transition-colors duration-200 ease-in-out">
+            <td className="px-6 py-4 text-gray-200 font-medium">Gender Breakdown</td>
+            <td className="px-6 py-4 text-gray-400">
+              The gender distribution is almost equal, highlighting that Netflix appeals equally to both male and female users.
+            </td>
+          </tr>
+          <tr className="bg-gray-900 hover:bg-gray-800 transition-colors duration-200 ease-in-out">
+            <td className="px-6 py-4 text-gray-200 font-medium">Country Distribution</td>
+            <td className="px-6 py-4 text-gray-400">
+              The United States, Spain, and Canada lead in content availability, with the largest volume of Netflix content.
+            </td>
+          </tr>
+          <tr className="bg-gray-800 hover:bg-gray-700 transition-colors duration-200 ease-in-out">
+            <td className="px-6 py-4 text-gray-200 font-medium">User Distribution by Country</td>
+            <td className="px-6 py-4 text-gray-400">
+              User engagement is strong not only in North America but also across Europe, with substantial engagement from Spain, Germany, and Italy.
+            </td>
+          </tr>
+          <tr className="bg-gray-900 hover:bg-gray-800 transition-colors duration-200 ease-in-out">
+            <td className="px-6 py-4 text-gray-200 font-medium">Subscription Types</td>
+            <td className="px-6 py-4 text-gray-400">
+              The Basic plan is the most popular subscription choice, which could indicate price sensitivity or lower demand for premium features.
+            </td>
+          </tr>
+          <tr className="bg-gray-800 hover:bg-gray-700 transition-colors duration-200 ease-in-out">
+            <td className="px-6 py-4 text-gray-200 font-medium">Device Usage</td>
+            <td className="px-6 py-4 text-gray-400">
+              Users most frequently stream content on Smart TVs and laptops, followed by tablets and smartphones, indicating a preference for larger screens.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </>
+  )}
+</div>
 
           </Container>
         );
