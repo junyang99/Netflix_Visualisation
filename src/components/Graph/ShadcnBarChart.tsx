@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
+import { ChartConfig, ChartContainer, ChartTooltipContent } from '@/components/ui/chart'
 
 interface BarChartProps {
   data: Array<{ [key: string]: string | number }>

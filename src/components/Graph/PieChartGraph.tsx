@@ -1,4 +1,3 @@
-import { TrendingUp } from 'lucide-react'
 import { PieChart, Pie} from 'recharts'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../ui/card'
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from '../ui/chart'
