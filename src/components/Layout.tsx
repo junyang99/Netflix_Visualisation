@@ -20,7 +20,7 @@ const Layout = () => {
             <div className="max-w-7xl mx-auto px-4 py-12 lg:px-8 text-center space-y-4">
                 {/* Main Footer Content */}
                 <p className="text-lg font-semibold tracking-wide text-gray-400">
-                    © {currentYear} <span className="text-white">IS482-G2</span> - All rights reserved.
+                    © {currentYear} <span className="text-white">IS428-G2</span> - All rights reserved.
                 </p>
                 
                 {/* Decorative Divider */}
