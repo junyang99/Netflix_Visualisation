@@ -9,6 +9,8 @@ import Netflix from './app/pages/Netflix.tsx';
 import User from './app/pages/User.tsx';
 import About from './app/pages/About/About.tsx';
 import SpashScreen from './components/SplashScreen/SpashScreen.tsx';
+import NetflixFinancialSankey from './app/pages/netflix-financial-sankey.tsx';
+
 // Splash screen logic in the root component
 const App = () => {
   const [splashScreen, setSplashScreen] = useState(true);
@@ -29,6 +31,7 @@ const App = () => {
         { path: '/', element: <Main /> },
         { path: '/about', element: <About /> },
         { path: '/user', element: <User /> },
+        { path: '/financial', element: <NetflixFinancialSankey /> },
         // { path: '/experiment', element: <Netflix /> },
         { path: '/netflix', element: <Netflix /> },
       ],

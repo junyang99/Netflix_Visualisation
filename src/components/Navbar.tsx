@@ -45,6 +45,14 @@ const Navbar: React.FC = () => (
           User
         </Link>
       </li>
+      <li>
+        <Link
+          to="/financial"
+          className="hover:text-red-500 hover:scale-105 transition-transform duration-300"
+        >
+          Financial
+        </Link>
+      </li>
     
       {/* <li>
         <Link
