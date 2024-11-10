@@ -31,7 +31,7 @@ const Carousell = () => {
         <div className="bg-background h-screen flex items-center justify-center">
             <div>
                 {/* Responsive title with padding adjustment for mobile screens */}
-                <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 px-4 md:px-0">Top 10 TV Programmes in Singapore Today</h2>
+                <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 px-4 md:px-0">Top 10 Must-See Movies of All Time</h2>
                 
                 <div className="relative w-full max-w-[90%] md:max-w-[95%] lg:max-w-full overflow-visible group text-center">
                     <Carousel className="relative w-full">

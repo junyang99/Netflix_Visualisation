@@ -82,83 +82,90 @@ const userCountryData =
       
         return (
           <Container>
-            {/* Main grid layout for charts */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
-              {/* LineGraph */}
-              <div className="col-span-1 md:col-span-2 lg:col-span-8">
-                <LineGraph
-                  data={lineData}
-                  line1_name="Age Viewership"
-                  line1_dkey="line1_data"
-                  line2_name=""
-                  line2_dkey=""
-                  x_dkey="Age"
-                  lineChartTitle="Platform Content Growth Over Time"
-                  lineChartDesc="Analysis of user's Netflix consumption by age"
-                  generalTrendMessage="Decline in User as Age increases"
-                  detailsMessage="There is a sharp decline in user consumption after Age 26 and consumption steadily stagnates afterwards"
-                />
-              </div>
-      
-              {/* Gender Breakdown Pie Chart */}
-              <div className="col-span-1 md:col-span-2 lg:col-span-4">
-                <PieChartGraph
-                  data={pieChartData}
-                  dataKey="percentage"
-                  nameKey="type"
-                  pieChartTitle="Gender Breakdown"
-                  pieChartDescription="Breakdown of userbase by gender"
-                  generalTrendMessage="Equal Gender Distribution between guys and girls"
-                  detailsMessage="Equal Gender Distribution between guys and girls"
-                />
-              </div>
-      
-              {/* Bar charts */}
-              <div className="col-span-1 md:col-span-6 lg:col-span-6">
-                <ShadcnBarChart
-                  data={contentDistributionData}
-                  xKey="country"
-                  yKey="value"
-                  title="Country Distribution by User Base"
-                  dataLabel="Country"
-                  description="Content distribution by country on Netflix"
-                />
-              </div>
-      
-              <div className="col-span-1 md:col-span-6 lg:col-span-6">
-                <ShadcnBarChart
-                  data={userCountryData}
-                  xKey="user_country"
-                  yKey="value"
-                  title="User by Country"
-                  dataLabel="Country"
-                  description="User distribution of content by country"
-                />
-              </div>
-      
-              <div className="col-span-1 md:col-span-6 lg:col-span-4">
-                <PieChartGraph
-                  data={SubscriptionRatingData}
-                  detailsMessage=""
-                  dataKey="percentage"
-                  nameKey="type"
-                  pieChartTitle="Subscription Type"
-                  pieChartDescription="Breakdown of userbase by subscription"
-                  generalTrendMessage="Majority of users are subscribed to the Basic Plan"
-                />
-              </div>
-      
-              <div className="col-span-1 md:col-span-6 lg:col-span-8">
-                <ShadcnBarChart
-                  data={categoryData}
-                  xKey="name"
-                  yKey="value"
-                  title="User Device"
-                  dataLabel="Devices Use"
-                  description="User's device used to watch Netflix"
-                />
-              </div>
-            </div>
+  {/* Main grid layout for charts */}
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+        {/* LineGraph */}
+        <div className="col-span-1 md:col-span-2 lg:col-span-8">
+          <LineGraph
+            data={lineData}
+            line1_name="Age Viewership"
+            line1_dkey="line1_data"
+            line2_name=""
+            line2_dkey=""
+            x_dkey="Age"
+            lineChartTitle="Platform Consumption"
+            lineChartDesc="Netflix consumption by age group"
+            generalTrendMessage="Consumption drops with age"
+            detailsMessage="User engagement drops sharply after age 26, then stabilizes."
+          />
+        </div>
+
+        {/* Gender Breakdown Pie Chart */}
+        <div className="col-span-1 md:col-span-2 lg:col-span-4">
+          <PieChartGraph
+            data={pieChartData}
+            dataKey="percentage"
+            nameKey="type"
+            pieChartTitle="Gender Breakdown"
+            pieChartDescription="Userbase by gender"
+            generalTrendMessage="Balanced gender distribution"
+            detailsMessage="Netflix attracts a nearly equal male and female audience."
+          />
+        </div>
+
+        {/* Bar charts */}
+        <div className="col-span-1 md:col-span-6 lg:col-span-6">
+          <ShadcnBarChart
+            data={contentDistributionData}
+            xKey="country"
+            yKey="value"
+            title="Country Distribution by User Base"
+            dataLabel="Country"
+            description="Content availability by country"
+            generalTrendMessage="Top availability in U.S., Spain, and Canada"
+            detailsMessage="U.S., Spain, and Canada have the largest content libraries."
+          />
+        </div>
+
+        <div className="col-span-1 md:col-span-6 lg:col-span-6">
+          <ShadcnBarChart
+            data={userCountryData}
+            xKey="user_country"
+            yKey="value"
+            title="User by Country"
+            dataLabel="Country"
+            description="User distribution by country"
+            generalTrendMessage="High engagement in North America & Europe"
+            detailsMessage="Strong user engagement across North America and Europe"
+          />
+        </div>
+
+        <div className="col-span-1 md:col-span-6 lg:col-span-4">
+          <PieChartGraph
+            data={SubscriptionRatingData}
+            dataKey="percentage"
+            nameKey="type"
+            pieChartTitle="Subscription Type"
+            pieChartDescription="Userbase by subscription"
+            generalTrendMessage="Majority of users on Basic plan"
+            detailsMessage="Basic plan is the most popular subscription choice"
+            
+          />
+        </div>
+
+        <div className="col-span-1 md:col-span-6 lg:col-span-8">
+          <ShadcnBarChart
+            data={categoryData}
+            xKey="name"
+            yKey="value"
+            title="User Device"
+            dataLabel="Device Use"
+            description="Devices used to watch Netflix"
+            generalTrendMessage="Preference for Smart TVs and laptops"
+            detailsMessage="Smart TVs and laptops are the top streaming devices"
+          />
+        </div>
+      </div>
       
             
             <div className="text-center mt-12">

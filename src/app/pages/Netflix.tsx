@@ -66,16 +66,18 @@ const tvRatingData =
     { 'rating': 'NR', 'value': 79 }
     ]
 
-const genreData = [{ 'genre': 'International Movies', 'value': 2752 },
-{ 'genre': 'Dramas', 'value': 2426 },
-{ 'genre': 'Comedies', 'value': 1674 },
-{ 'genre': 'International TV Shows', 'value': 1349 },
-{ 'genre': 'Documentaries', 'value': 869 },
-{ 'genre': 'Action & Adventure', 'value': 859 },
-{ 'genre': 'TV Dramas', 'value': 762 },
-{ 'genre': 'Independent Movies', 'value': 756 },
-{ 'genre': 'Children & Family Movies', 'value': 641 },
-{ 'genre': 'Romantic Movies', 'value': 616 }]
+const genreData = [
+{ 'genre': 'Dramas', 'value': 2155 },
+{ 'genre': 'Comedies', 'value':  1558 },
+{ 'genre': 'International TV Shows', 'value': 1316 },
+{ 'genre': 'Action', 'value': 1218 },
+{ 'genre': 'Romantic', 'value': 846 },
+{ 'genre': 'Adventure', 'value': 832 },
+{ 'genre': 'Crime', 'value': 765 },
+{ 'genre': 'Horror', 'value': 524 },
+{ 'genre': 'Family', 'value': 459 },
+{ 'genre': 'Fantasy', 'value': 453 },
+]
 
 
 
@@ -110,7 +112,7 @@ const Netflix = () => {
                         nameKey="type" // Key for labels
                         pieChartTitle="Movies vs TV Shows" // Pie chart title
                         pieChartDescription="Breakdown of content types" // Pie chart description
-                        generalTrendMessage="Movies are 30.3% more than TV shows "
+                        generalTrendMessage="Movies are 39.4% more than TV shows "
                         detailsMessage="Stronger emphasis placed on movies as compared to TV shows"
                     />
                 </div>
@@ -124,6 +126,8 @@ const Netflix = () => {
                         title="Top 9 Countries by Content Count"
                         dataLabel="Country"
                         description="Content distribution by country on Netflix"
+                        generalTrendMessage="United States leads with 2809 titles"
+                        detailsMessage="Country with largest catalog of titles on Netflix"
                     />
                 </div>
 
@@ -135,6 +139,8 @@ const Netflix = () => {
                         title="Top 9 Directors by Frequency"
                         dataLabel="Director"
                         description="Director distribution of content on Netflix"
+                        generalTrendMessage="Rajiv Chilaka is Netflix’s most prolific director"
+                        detailsMessage="Titles by unknown directors were excluded for clearer insights"
                     />
                 </div>
                 <div className="col-span-1 md:col-span-1 lg:col-span-3">
@@ -145,6 +151,8 @@ const Netflix = () => {
                         title="Top 10 Ratings by Frequency"
                         dataLabel="Rating"
                         description="Rating distribution of content on Netflix"
+                        generalTrendMessage="TV-MA is the most common rating"
+                        detailsMessage="Tihs reflects Netflix's focus on mature themes"
                     />
                 </div>
 
@@ -156,6 +164,8 @@ const Netflix = () => {
                         title="Top 10 Genres by Frequency"
                         dataLabel="Genre"
                         description="Genre distribution of content on Netflix"
+                        generalTrendMessage="Dramas lead in popularity"
+                        detailsMessage="This genre could potentially be used to attract more viewers"
                     />
                 </div>
 

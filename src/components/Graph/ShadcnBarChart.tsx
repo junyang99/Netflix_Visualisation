@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart } from 'recharts'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { ChartConfig, ChartContainer, ChartTooltipContent } from '@/components/ui/chart'
 
 interface BarChartProps {
@@ -10,9 +10,20 @@ interface BarChartProps {
   dataLabel: string
   title: string
   description: string
+  generalTrendMessage: string
+  detailsMessage: string
 }
 
-export default function ShadcnBarChart({ data, xKey, yKey, title, description, dataLabel }: BarChartProps) {
+export default function ShadcnBarChart({ 
+  data, 
+  xKey, 
+  yKey, 
+  title, 
+  description, 
+  dataLabel, 
+  generalTrendMessage,
+  detailsMessage 
+}: BarChartProps) {
   const chartConfig = {
     value: {
       label: `${dataLabel}`,
@@ -84,8 +95,7 @@ export default function ShadcnBarChart({ data, xKey, yKey, title, description, d
             tick={{ fontSize: textSize, fill: 'hsl(var(--foreground))' }}
             width={40}
           />
-
-      <Tooltip content={<ChartTooltipContent indicator="line" />} cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }} />
+          <Tooltip content={<ChartTooltipContent indicator="line" />} cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }} />
           <Bar dataKey={yKey} fill="var(--color-value)" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
@@ -93,14 +103,24 @@ export default function ShadcnBarChart({ data, xKey, yKey, title, description, d
   )
 
   return (
-    <Card className="w-full h-full">
+    <Card className="w-full h-full flex flex-col overflow-hidden">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <CardContent className="pt-0 h-[calc(100%-4rem)]">
-        {renderChart()}
+      <CardContent className="flex-grow px-4 py-2">
+        <div className="h-full">
+          {renderChart()}
+        </div>
       </CardContent>
+      <CardFooter className="px-4">
+        <div className="w-full text-sm space-y-1">
+          <p className='font-bold'>{generalTrendMessage}</p>
+          <p className="text-muted-foreground">{detailsMessage}</p>
+        </div>
+      </CardFooter>
     </Card>
   )
+  
+  
 }
