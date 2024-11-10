@@ -110,7 +110,7 @@ const Netflix = () => {
                         nameKey="type" // Key for labels
                         pieChartTitle="Movies vs TV Shows" // Pie chart title
                         pieChartDescription="Breakdown of content types" // Pie chart description
-                        generalTrendMessage="Movies are 30.3% more than TV shows "
+                        generalTrendMessage="Movies are 39.4% more than TV shows "
                         detailsMessage="Stronger emphasis placed on movies as compared to TV shows"
                     />
                 </div>
@@ -124,6 +124,8 @@ const Netflix = () => {
                         title="Top 9 Countries by Content Count"
                         dataLabel="Country"
                         description="Content distribution by country on Netflix"
+                        generalTrendMessage="United States leads with 2809 titles"
+                        detailsMessage="Country with largest catalog of titles on Netflix"
                     />
                 </div>
 
@@ -135,6 +137,8 @@ const Netflix = () => {
                         title="Top 9 Directors by Frequency"
                         dataLabel="Director"
                         description="Director distribution of content on Netflix"
+                        generalTrendMessage="Rajiv Chilaka is Netflix’s most prolific director"
+                        detailsMessage="Titles by unknown directors were excluded for clearer insights"
                     />
                 </div>
                 <div className="col-span-1 md:col-span-1 lg:col-span-3">
@@ -145,6 +149,8 @@ const Netflix = () => {
                         title="Top 10 Ratings by Frequency"
                         dataLabel="Rating"
                         description="Rating distribution of content on Netflix"
+                        generalTrendMessage="TV-MA is the most common rating"
+                        detailsMessage="Tihs reflects Netflix's focus on mature themes"
                     />
                 </div>
 
@@ -156,6 +162,8 @@ const Netflix = () => {
                         title="Top 10 Genres by Frequency"
                         dataLabel="Genre"
                         description="Genre distribution of content on Netflix"
+                        generalTrendMessage="International movies lead in popularity"
+                        detailsMessage="This genre’s popularity shows Netflix's appeal to a global audience"
                     />
                 </div>
 

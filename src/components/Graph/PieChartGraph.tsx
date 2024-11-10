@@ -80,7 +80,7 @@ const PieChartGraph = ({ data, dataKey,nameKey,pieChartTitle,pieChartDescription
                             dominantBaseline="middle"
                                     fill="hsla(var(--foreground))"
                                   >
-                                    {payload[dataKey]}
+                                    {payload[dataKey]} %
                                 
                                   </text>
                                 )
