@@ -1,9 +1,7 @@
-"use client";
-
-import React, { useEffect, useRef } from "react";
+import  { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { sankey, sankeyLinkHorizontal } from "d3-sankey";
-
+import { motion } from "framer-motion";
 interface SankeyNode extends d3.SimulationNodeDatum {
   name: string;
   value?: number;
@@ -154,8 +152,8 @@ export default function NetflixFinancialSankey() {
       .join("path")
       .attr("d", sankeyLinkHorizontal())
       .attr("fill", "none")
-      .attr("stroke", (d) => colorScale[d.category])
-      .attr("stroke-width", (d) => Math.max(1, d.width!))
+      .attr("stroke", (d: SankeyLink) => colorScale[d.category])
+      .attr("stroke-width", (d: SankeyLink) => Math.max(1, d.width!))
       .attr("stroke-opacity", 0.3)
       .on("mouseover", function () {
         d3.select(this).attr("stroke-opacity", 0.5);
@@ -164,17 +162,16 @@ export default function NetflixFinancialSankey() {
         d3.select(this).attr("stroke-opacity", 0.3);
       });
 
-    // Add nodes
-    const node = svg
+    svg
       .append("g")
       .selectAll("rect")
       .data(nodes)
       .join("rect")
-      .attr("x", (d) => d.x0!)
-      .attr("y", (d) => d.y0!)
-      .attr("height", (d) => d.y1! - d.y0!)
-      .attr("width", (d) => d.x1! - d.x0!)
-      .attr("fill", (d) => colorScale[d.category])
+      .attr("x", (d: SankeyNode) => d.x0!)
+      .attr("y", (d: SankeyNode) => d.y0!)
+      .attr("height", (d: SankeyNode) => d.y1! - d.y0!)
+      .attr("width", (d: SankeyNode) => d.x1! - d.x0!)
+      .attr("fill", (d: SankeyNode) => colorScale[d.category])
       .attr("opacity", 0.8);
 
     // Add labels
@@ -183,23 +180,23 @@ export default function NetflixFinancialSankey() {
       .selectAll("text")
       .data(nodes)
       .join("text")
-      .attr("x", (d) => (d.x0! < width / 2 ? d.x1! + 6 : d.x0! - 6))
-      .attr("y", (d) => (d.y1! + d.y0!) / 2)
+      .attr("x", (d: SankeyNode) => (d.x0! < width / 2 ? d.x1! + 6 : d.x0! - 6))
+      .attr("y", (d: SankeyNode) => (d.y1! + d.y0!) / 2)
       .attr("dy", "0.35em")
-      .attr("text-anchor", (d) => (d.x0! < width / 2 ? "start" : "end"))
+      .attr("text-anchor", (d: SankeyNode) => (d.x0! < width / 2 ? "start" : "end"))
       .attr("font-size", "12px")
       .attr("fill", "white");
 
     // Add main label
-    label.append("tspan").text((d) => `${d.name} ($${d.value}B)`);
+    label.append("tspan").text((d: SankeyNode) => `${d.name} ($${d.value}B)`);
 
     // Add growth rate
     label
       .append("tspan")
-      .attr("x", (d) => (d.x0! < width / 2 ? d.x1! + 6 : d.x0! - 6))
+      .attr("x", (d: SankeyNode) => (d.x0! < width / 2 ? d.x1! + 6 : d.x0! - 6))
       .attr("dy", "1.2em")
       .attr("fill", "#999")
-      .text((d) => d.growth || "");
+      .text((d: SankeyNode) => d.growth || "");
 
     // Add title
     svg
@@ -227,18 +224,77 @@ export default function NetflixFinancialSankey() {
       .attr("x", width / 2)
       .attr("y", -10)
       .attr("text-anchor", "middle")
-      .attr("class", "text-sm text-gray-500")
+      .attr("fill", "white")
+      .attr("class", "text-sm font-bold")
       .text("Source: Netflix investor relations");
   }, []);
-
   return (
-    <div className="w-full max-w-[1200px] mx-auto bg-black p-4">
-      <svg
-        ref={svgRef}
-        className="w-full h-auto"
-        style={{ minHeight: "600px" }}
-        aria-label="Netflix Q2 FY24 Income Statement Sankey Diagram"
-      />
-    </div>
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="bg-background p-4 lg:p-8 rounded-lg shadow-lg flex flex-col items-center"
+    >
+      {/* Chart Section */}
+      <div className="w-full lg:w-3/4 mb-8">
+        <motion.svg
+          ref={svgRef}
+          className="w-full h-auto"
+          style={{
+            minHeight: "60vh", // Increased minimum height for better visibility on mobile
+          }}
+          aria-label="Netflix Q3 FY24 Income Statement Sankey Diagram"
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        />
+      </div>
+
+      {/* Text Description Section with Enhanced Styling */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 1, type: "spring", stiffness: 60 }}
+        className=" text-center text-white p-6 border border-primary rounded-lg shadow-lg bg-gradient-to-b "
+      >
+        <motion.h2
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="text-3xl font-extrabold mb-4 text-primary"
+        >
+          Netflix Financial Flow Analysis 💸
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.8 }}
+          className="text-lg leading-relaxed mb-4"
+        >
+          This <span className="text-primary font-semibold">Sankey diagram</span> provides a
+          <span className="font-semibold"> dynamic</span> view of Netflix's Q3 FY24 income,
+          illustrating how <span className="text-primary font-semibold">regional revenue</span> translates into
+          <span className="font-semibold"> costs</span> and <span className="font-semibold">profits</span>.
+          Each path traces the financial flow, spotlighting Netflix's financial structure and pinpointing
+          key resource allocations.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="text-lg leading-relaxed"
+        >
+          By connecting <span className="text-primary font-semibold">financial insights</span> to
+          <span className="font-semibold"> content trends</span> and user demographics, this diagram
+          uncovers how Netflix can optimize <span className="text-primary font-semibold">content investments </span>
+          across regions. It supports our project’s aim to align Netflix's content with global audience
+          preferences for greater engagement and profitability.
+        </motion.p>
+      </motion.div>
+    </motion.div>
   );
+  
+  
 }
