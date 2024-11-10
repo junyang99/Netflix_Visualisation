@@ -66,16 +66,18 @@ const tvRatingData =
     { 'rating': 'NR', 'value': 79 }
     ]
 
-const genreData = [{ 'genre': 'International Movies', 'value': 2752 },
-{ 'genre': 'Dramas', 'value': 2426 },
-{ 'genre': 'Comedies', 'value': 1674 },
-{ 'genre': 'International TV Shows', 'value': 1349 },
-{ 'genre': 'Documentaries', 'value': 869 },
-{ 'genre': 'Action & Adventure', 'value': 859 },
-{ 'genre': 'TV Dramas', 'value': 762 },
-{ 'genre': 'Independent Movies', 'value': 756 },
-{ 'genre': 'Children & Family Movies', 'value': 641 },
-{ 'genre': 'Romantic Movies', 'value': 616 }]
+const genreData = [
+{ 'genre': 'Dramas', 'value': 2155 },
+{ 'genre': 'Comedies', 'value':  1558 },
+{ 'genre': 'International TV Shows', 'value': 1316 },
+{ 'genre': 'Action', 'value': 1218 },
+{ 'genre': 'Romantic', 'value': 846 },
+{ 'genre': 'Adventure', 'value': 832 },
+{ 'genre': 'Crime', 'value': 765 },
+{ 'genre': 'Horror', 'value': 524 },
+{ 'genre': 'Family', 'value': 459 },
+{ 'genre': 'Fantasy', 'value': 453 },
+]
 
 
 
@@ -162,8 +164,8 @@ const Netflix = () => {
                         title="Top 10 Genres by Frequency"
                         dataLabel="Genre"
                         description="Genre distribution of content on Netflix"
-                        generalTrendMessage="International movies lead in popularity"
-                        detailsMessage="This genre’s popularity shows Netflix's appeal to a global audience"
+                        generalTrendMessage="Dramas lead in popularity"
+                        detailsMessage="This genre could potentially be used to attract more viewers"
                     />
                 </div>
 
