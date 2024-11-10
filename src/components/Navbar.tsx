@@ -19,6 +19,15 @@ const Navbar: React.FC = () => {
           About
         </Link>
       </motion.li>
+      <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+        <Link
+          to="/financial"
+          className="block px-4 py-2 text-md  hover:text-red-500 "
+          onClick={() => setIsOpen(false)}
+        >
+          Financial
+        </Link>
+      </motion.li>
       <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} >
         <Link
           to="/netflix"
@@ -95,5 +104,7 @@ const Navbar: React.FC = () => {
     </motion.header>
   );
 };
+     
+
 
 export default Navbar;
